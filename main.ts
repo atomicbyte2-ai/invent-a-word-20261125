@@ -15,6 +15,10 @@ if (ENTRY.includes("\n") || ENTRY.includes("\r")) {
 if (ENTRY !== ENTRY.trim()) {
   throw new Error("entry must not have leading or trailing whitespace");
 }
+const separatorIndex = ENTRY.indexOf(" — ");
+if (separatorIndex <= 0 || separatorIndex + 3 >= ENTRY.length) {
+  throw new Error("entry must be 'word — definition' with a non-empty word and definition");
+}
 
 const outDir = process.env.MAKEFUN_OUTPUT_DIR || "/output";
 fs.mkdirSync(outDir, { recursive: true });
